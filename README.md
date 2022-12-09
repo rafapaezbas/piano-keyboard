@@ -17,7 +17,7 @@
 	</script>
 	<style>
 		piano-keyboard {
-			display: block;
+		    display: block;
 		    text-align: center;
 		}
 	</style>
