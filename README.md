@@ -2,6 +2,8 @@
 
 [Web component](https://developer.mozilla.org/es/docs/Web/Web_Components) canvas based piano keyboard.
 
+![piano-keyboard](https://user-images.githubusercontent.com/15270736/206792513-31a22280-c278-404e-91bd-47df1571e82b.png)
+
 ## Example
 
 ``` html
