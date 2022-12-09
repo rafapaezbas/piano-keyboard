@@ -1,13 +1,19 @@
 <html>
+	<script src="https://rawgit.com/rafapaezbas/piano-keyboard/main/piano-keyboard.js"></script>
 	<body>
 		<piano-keyboard height="100" width="800" octaves="5"></piano-keyboard>
 	</body>
-	<script src="./index.js"></script>
 	<script>
 		document.querySelector('piano-keyboard').addEventListener('key-pressed', ({ detail }) => {
 			console.log(detail.note)
 		})
 	</script>
+	<style>
+		piano-keyboard {
+			display: block;
+		    text-align: center;
+		}
+	</style>
 </html>
 
 
