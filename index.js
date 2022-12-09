@@ -1,63 +1,80 @@
-const canvas = document.getElementById('myCanvas')
-const ctx = canvas.getContext('2d')
+/* eslint-env browser */
 
-const width = canvas.width
-const height = canvas.height
+window.customElements.define('piano-keyboard', class PianoKeyboard extends HTMLElement {
+  constructor () {
+    super()
+    this.root = this.attachShadow({ mode: 'open' })
 
-const octaves = 3
-const whiteKeyWidth = (width / octaves) / 7
-const blackKeyWidth = whiteKeyWidth - whiteKeyWidth / 3
-const blackKeyHeight = height / 2
-const blackKeysOffset = whiteKeyWidth / 2 + (whiteKeyWidth / 6)
+    this.canvas = document.createElement('canvas')
+    this.canvas.setAttribute('width', this.getAttribute('width') || 600)
+    this.canvas.setAttribute('height', this.getAttribute('width') || 100)
 
-// Draw white keys
-for (let i = 0; i < octaves * 7; i++) {
-  ctx.lineWidth = 1
-  drawBorder(whiteKeyWidth * i, 0, whiteKeyWidth, height, 1)
-  ctx.fillStyle = 'white'
-  ctx.fillRect(whiteKeyWidth * i, 0, whiteKeyWidth, height)
-}
+    this.root.appendChild(this.canvas)
 
-// Draw black keys
-let i = 0
-let j = 0
-while (i < octaves * 5) {
-  if (j % 7 !== 2 && j % 7 !== 6) {
-    ctx.fillStyle = 'black'
-    ctx.fillRect((whiteKeyWidth * j) + blackKeysOffset, 0, blackKeyWidth, blackKeyHeight)
-    i++
+    this.ctx = this.canvas.getContext('2d')
+    this.width = this.canvas.width
+    this.height = this.canvas.height
+
+    this.octaves = 3
+    this.whiteKeyWidth = (this.width / this.octaves) / 7
+    this.blackKeyWidth = this.whiteKeyWidth - this.whiteKeyWidth / 3
+    this.blackKeyHeight = this.height / 2
+    this.blackKeysOffset = this.whiteKeyWidth / 2 + (this.whiteKeyWidth / 6)
+
+    // Draw white keys
+
+    for (let i = 0; i < this.octaves * 7; i++) {
+      this.ctx.lineWidth = 1
+      this.drawBorder(this.whiteKeyWidth * i, 0, this.whiteKeyWidth, this.height, 1)
+      this.ctx.fillStyle = 'white'
+      this.ctx.fillRect(this.whiteKeyWidth * i, 0, this.whiteKeyWidth, this.height)
+    }
+
+    // Draw black keys
+
+    let i = 0
+    let j = 0
+    while (i < this.octaves * 5) {
+      if (j % 7 !== 2 && j % 7 !== 6) {
+        this.ctx.fillStyle = 'black'
+        this.ctx.fillRect((this.whiteKeyWidth * j) + this.blackKeysOffset, 0, this.blackKeyWidth, this.blackKeyHeight)
+        i++
+      }
+      j++
+    }
   }
-  j++
-}
 
-canvas.addEventListener('mousedown', function (e) {
-  getCursorPosition(canvas, e)
+  drawBorder (xPos, yPos, width, height, thickness = 2) {
+    this.ctx.fillStyle = 'black'
+    this.ctx.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2))
+  }
+
+  getCursorPosition (canvas, event) {
+    const rect = this.canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    console.log('x: ' + x + ' y: ' + y)
+    console.log('note', this.getNote(x, y))
+  }
+
+  getNote (x, y) {
+    const notes = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
+    const position = Math.floor(x / this.whiteKeyWidth)
+    const note = notes[position % 7]
+
+    if (y < this.blackKeyHeight && (x % this.whiteKeyWidth) > this.blackKeysOffset && note !== 'e' && note !== 'b') {
+      return note + '#'
+    }
+    if (y < this.blackKeyHeight && (x % this.whiteKeyWidth) < this.blackKeyWidth / 2 && note !== 'f' && note !== 'c') {
+      return notes[(position - 1) % 7] + '#'
+    }
+
+    return note
+  }
+
+  async connectedCallback () {
+    this.canvas.addEventListener('mousedown', (e) => {
+      this.getCursorPosition(this.canvas, e)
+    })
+  }
 })
-
-function drawBorder (xPos, yPos, width, height, thickness = 2) {
-  ctx.fillStyle = 'black'
-  ctx.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2))
-}
-
-function getCursorPosition (canvas, event) {
-  const rect = canvas.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
-  console.log('x: ' + x + ' y: ' + y)
-  console.log('note', getNote(x, y))
-}
-
-function getNote (x, y) {
-  const notes = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
-  const position = Math.floor(x / whiteKeyWidth)
-  const note = notes[position % 7]
-
-  if (y < blackKeyHeight && (x % whiteKeyWidth) > blackKeysOffset && note !== 'e' && note !== 'b') {
-    return note + '#'
-  }
-  if (y < blackKeyHeight && (x % whiteKeyWidth) < blackKeyWidth / 2 && note !== 'f' && note !== 'c') {
-    return notes[(position - 1) % 7] + '#'
-  }
-
-  return note
-}
