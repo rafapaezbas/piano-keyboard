@@ -38,7 +38,7 @@ Set the height in pixels of the piano keyboard canvas (default 100).
 
 ### `octaves` 
 
-Set the number of octaves in the keyboard.
+Set the number of octaves in the keyboard (default 3).
 
 ## Events
 
