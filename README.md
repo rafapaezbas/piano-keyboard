@@ -6,21 +6,21 @@
 
 ``` html
 <html>
-	<body>
-		<piano-keyboard height="100" width="800" octaves="5"></piano-keyboard>
-	</body>
-	<script src="https://cdn.jsdelivr.net/gh/rafapaezbas/piano-keyboard/piano-keyboard.js"></script>
-	<script>
-		document.querySelector('piano-keyboard').addEventListener('key-pressed', ({ detail }) => {
-			console.log(detail.note)
-		})
-	</script>
-	<style>
-		piano-keyboard {
-		    display: block;
-		    text-align: center;
-		}
-	</style>
+  <body>
+    <piano-keyboard height="100" width="800" octaves="5"></piano-keyboard>
+  </body>
+  <script src="https://cdn.jsdelivr.net/gh/rafapaezbas/piano-keyboard/piano-keyboard.js"></script>
+  <script>
+    document.querySelector('piano-keyboard').addEventListener('key-pressed', ({ detail }) => {
+      console.log(detail.note)
+    })
+  </script>
+  <style>
+    piano-keyboard {
+      display: block;
+      text-align: center;
+    }
+  </style>
 </html>
 ```
 
