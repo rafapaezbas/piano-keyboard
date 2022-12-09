@@ -44,7 +44,7 @@ Set the number of octaves in the keyboard (default 3).
 
 ### `piano-keyboard.on('key-pressed', (event) => {})` 
 
-`event.detail.note` contains the pressed note (english notation)
+`event.detail.note` contains the pressed note (english notation).
 
 ## API
 
