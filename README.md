@@ -46,7 +46,7 @@ Set the number of octaves in the keyboard.
 
 `Event.detail.note` contains the pressed note (english notation)
 
-## Api
+## API
 
 ### `piano-keyboard.draw(pressedKeys = [])` 
 
