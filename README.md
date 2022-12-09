@@ -28,26 +28,26 @@
 
 ## Atributes
 
-`width` 
+### `width` 
 
 Set the width in pixels of the piano keyboard canvas (default 600).
 
-`height` 
+### `height` 
 
 Set the height in pixels of the piano keyboard canvas (default 100).
 
-`octaves` 
+### `octaves` 
 
 Set the number of octaves in the keyboard.
 
 ## Events
 
-`piano-keyboard.on('key-pressed', (event) => {})` 
+### `piano-keyboard.on('key-pressed', (event) => {})` 
 
 `Event.detail.note` contains the pressed note (english notation)
 
 ## Api
 
-`piano-keyboard.draw(pressedKeys = [])` 
+### `piano-keyboard.draw(pressedKeys = [])` 
 
 Redraws the keyboard with `pressedKeys` highlighted in red.
