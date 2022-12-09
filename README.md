@@ -26,7 +26,7 @@
 </html>
 ```
 
-## Atributes
+## Attributes
 
 ### `width` 
 
