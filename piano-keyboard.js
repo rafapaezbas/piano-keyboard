@@ -75,7 +75,7 @@ window.customElements.define('piano-keyboard', class PianoKeyboard extends HTMLE
       return this.notes[(position - 1) % 7] + '#' + octave
     }
 
-    return note + octave
+    return note + (octave + 1)
   }
 
   async connectedCallback () {
